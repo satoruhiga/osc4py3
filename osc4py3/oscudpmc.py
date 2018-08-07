@@ -139,6 +139,7 @@ class UdpMcChannel(oscchannel.TransportChannel):
         self.udpsock = None
         self.udpsockspec = None
         self.mcast_enabled = options.get('mcast_enabled', False)
+        self.mcast_group = options.get('mcast_group', '239.0.0.1')
         self.bcast_enabled = options.get('bcast_enabled', False)
         #:CODE CHANGED
         self.mcast_loop = None
@@ -305,7 +306,7 @@ class UdpMcChannel(oscchannel.TransportChannel):
             # Join multicast group.
         if self.mcast_enabled:
             group_bin = socket.inet_pton(self.udpsockspec.family,
-                                self.udpsockspec.sockaddr[0])
+                                self.mcast_group)
             if self.udpsockspec.family == socket.AF_INET: # IPv4
                 mreq = group_bin + struct.pack('=I', socket.INADDR_ANY)
                 #CODE CHANGED

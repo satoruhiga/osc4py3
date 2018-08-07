@@ -148,7 +148,7 @@ def osc_udp_client(address, port, name):
             })
 
 
-def osc_multicast_server(address, port, name):
+def osc_multicast_server(address, port, name, mcast_group):
     from . import oscudpmc   # Only import if necessary.
 
     chan = oscudpmc.UdpMcChannel(name, "r",
@@ -158,6 +158,7 @@ def osc_multicast_server(address, port, name):
             'monitor': _select_monitor(),
             'auto_start': True,
             'mcast_enabled': True,
+            'mcast_group': mcast_group,
             'logger': generallogger,
             })
 
